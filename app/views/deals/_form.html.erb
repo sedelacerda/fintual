@@ -1,0 +1,32 @@
+<%= form_with(model: deal, local: true) do |form| %>
+  <% if deal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(deal.errors.count, "error") %> prohibited this deal from being saved:</h2>
+
+      <ul>
+      <% deal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :portfolio_id %>
+    <%= form.text_field :portfolio_id, id: :deal_portfolio_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stock_id %>
+    <%= form.text_field :stock_id, id: :deal_stock_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, id: :deal_amount %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

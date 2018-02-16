@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Portfolio:</strong>
+  <%= @deal.portfolio %>
+</p>
+
+<p>
+  <strong>Stock:</strong>
+  <%= @deal.stock %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @deal.amount %>
+</p>
+
+<%= link_to 'Edit', edit_deal_path(@deal) %> |
+<%= link_to 'Back', deals_path %>
