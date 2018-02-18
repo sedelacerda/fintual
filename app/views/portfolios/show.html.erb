@@ -1,9 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @portfolio.name %>
-</p>
+<div class="col-xs-6 pull-left">
+  <h1>
+    <%= @portfolio.name %>
+  </h1>
+</div>
 
-<%= link_to 'Edit', edit_portfolio_path(@portfolio) %> |
-<%= link_to 'Back', portfolios_path %>
+<div class="col-xs-6 text-right">
+  <%= link_to 'View transactions history', portfolio_deals_path(@portfolio) %>
+</div>
+
+<div class="col-xs-12">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Stock name</th>
+        <th>Quantity</th>
+        <th>Current price (USD)</th>
+        <th>Total (USD)</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @portfolio_stock_amount.each do |sa| %>
+        <tr>
+          <td><%= sa[0].name %></td>
+          <td><%= sa[1] %></td>
+          <td><%= sa[0].price %></td>
+          <td><%= sa[1] * sa[0].price %></td>
+          <td><%= link_to 'Show', sa[0] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Edit', edit_portfolio_path(@portfolio) %> |
+  <%= link_to 'Back', portfolios_path %>
+</div>
+

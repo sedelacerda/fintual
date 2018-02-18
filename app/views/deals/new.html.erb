@@ -1,5 +1,5 @@
 <h1>New Deal</h1>
 
-<%= render 'form', deal: @deal %>
+<%= render 'form', { deal: @deal, portfolio: @portfolio.id} %>
 
-<%= link_to 'Back', deals_path %>
+<%= link_to 'Back', portfolio_deals_path %>

@@ -41,8 +41,13 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
+    autoprefixer-rails (7.2.3)
+      execjs
     awesome_print (1.8.0)
     bindex (0.5.0)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (10.0.0)
     capybara (2.18.0)
@@ -178,7 +183,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   awesome_print
+  bootstrap-sass
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)

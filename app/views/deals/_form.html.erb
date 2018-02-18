@@ -1,4 +1,4 @@
-<%= form_with(model: deal, local: true) do |form| %>
+<%= form_with(model: deal, local: true, url: portfolio_deals_path(id: portfolio)) do |form| %>
   <% if deal.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(deal.errors.count, "error") %> prohibited this deal from being saved:</h2>
@@ -10,11 +10,6 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :portfolio_id %>
-    <%= form.text_field :portfolio_id, id: :deal_portfolio_id %>
-  </div>
 
   <div class="field">
     <%= form.label :stock_id %>

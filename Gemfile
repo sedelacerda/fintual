@@ -60,3 +60,7 @@ gem 'faker'
 
 # Printing in console
 gem 'awesome_print'
+
+# Visualization
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'

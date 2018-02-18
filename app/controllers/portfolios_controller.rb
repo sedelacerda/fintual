@@ -10,6 +10,7 @@ class PortfoliosController < ApplicationController
   # GET /portfolios/1
   # GET /portfolios/1.json
   def show
+    @portfolio_stock_amount = @portfolio.deals.group(:stock).sum(:amount)
   end
 
   # GET /portfolios/new

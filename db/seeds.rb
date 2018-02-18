@@ -15,6 +15,6 @@ end
 
 # Portfolios
 5.times do |i|
-    p = Portfolio.create!(name: 'Portfolio ' + i.to_s)
+    p = Portfolio.create!(name: 'Portfolio ' + (i+1).to_s)
     ap p
 end
