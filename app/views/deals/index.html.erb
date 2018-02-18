@@ -6,9 +6,10 @@
   <thead>
     <tr>
       <th>Stock</th>
-      <th>Amount</th>
-      <th>Price at transaction (USD)</th>
-      <th>Total (USD)</th>
+      <th class="text-right">Transaction type</th>
+      <th class="text-right">Amount</th>
+      <th class="text-right">Price at transaction (USD)</th>
+      <th class="text-right">Total (USD)</th>
     </tr>
   </thead>
 
@@ -16,9 +17,10 @@
     <% @deals.each do |deal| %>
       <tr>
         <td><%= deal.stock.name %></td>
-        <td><%= deal.amount %></td>
-        <td><%= deal.stock.price(deal.created_at) %></td>
-        <td><%= deal.amount * deal.stock.price(deal.created_at) %></td>
+        <td class="text-right"><%= deal.trx_type %></td>
+        <td class="text-right"><%= deal.amount %></td>
+        <td class="text-right"><%= deal.stock.price(deal.created_at) %></td>
+        <td class="text-right"><%= deal.amount * deal.stock.price(deal.created_at) %></td>
       </tr>
     <% end %>
   </tbody>

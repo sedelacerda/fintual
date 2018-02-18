@@ -1,13 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<div class="col-xs-6 pull-left">
-  <h1>
-    <%= @portfolio.name %>
-  </h1>
+<div class="col-xs-12 pull-left">
+  <div class="pull-left">
+    <h1 class="inline-text">
+      <%= @portfolio.name %>
+    </h1>
+    <%= link_to 'Edit', edit_portfolio_path(@portfolio), class: 'btn btn-xs btn-primary inline-text' %>
+  </div>
+  <div class="pull-right">
+    <h1 class="inline-text"></h1>
+    <%= link_to 'View transactions history', portfolio_deals_path(@portfolio), class: 'btn btn-default inline-text' %>
+
+  </div>
 </div>
 
 <div class="col-xs-6 text-right">
-  <%= link_to 'View transactions history', portfolio_deals_path(@portfolio) %>
 </div>
 
 <div class="col-xs-12">
@@ -15,9 +22,9 @@
     <thead>
       <tr>
         <th>Stock name</th>
-        <th>Quantity</th>
-        <th>Current price (USD)</th>
-        <th>Total (USD)</th>
+        <th class="text-right">Quantity</th>
+        <th class="text-right">Current price (USD)</th>
+        <th class="text-right">Total (USD)</th>
         <th colspan="1"></th>
       </tr>
     </thead>
@@ -26,16 +33,13 @@
       <% @portfolio_stock_amount.each do |sa| %>
         <tr>
           <td><%= sa[0].name %></td>
-          <td><%= sa[1] %></td>
-          <td><%= sa[0].price %></td>
-          <td><%= sa[1] * sa[0].price %></td>
-          <td><%= link_to 'Show', sa[0] %></td>
+          <td class="text-right"><%= sa[1] %></td>
+          <td class="text-right"><%= sa[0].price %></td>
+          <td class="text-right"><%= sa[1] * sa[0].price %></td>
+          <td class="text-right"><%= link_to 'View stock history', sa[0], class: 'btn btn-xs btn-success' %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
-  <%= link_to 'Edit', edit_portfolio_path(@portfolio) %> |
-  <%= link_to 'Back', portfolios_path %>
 </div>
 

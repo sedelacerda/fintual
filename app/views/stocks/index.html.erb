@@ -6,8 +6,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Price</th>
-      <th colspan="2"></th>
+      <th class="text-right">Price (USD)</th>
+      <th colspan="2" class="text-right"></th>
     </tr>
   </thead>
 
@@ -15,9 +15,9 @@
     <% @stocks.each do |stock| %>
       <tr>
         <td><%= stock.name %></td>
-        <td><%= stock.price %></td>
-        <td><%= link_to 'Last month', stock %></td>
-        <td><%= link_to 'Last year', stock %></td>
+        <td class="text-right"><%= '%.2f' % stock.price %></td>
+        <td class="text-right"><%= link_to 'Last month', stock %></td>
+        <td class="text-right"><%= link_to 'Last year', stock %></td>
       </tr>
     <% end %>
   </tbody>
