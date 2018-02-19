@@ -18,9 +18,9 @@
       <tr>
         <td><%= deal.stock.name %></td>
         <td class="text-right"><%= deal.trx_type %></td>
-        <td class="text-right"><%= deal.amount %></td>
+        <td class="text-right"><%= deal.amount.abs %></td>
         <td class="text-right"><%= deal.stock.price(deal.created_at) %></td>
-        <td class="text-right"><%= deal.amount * deal.stock.price(deal.created_at) %></td>
+        <td class="text-right"><%= (deal.amount * deal.stock.price(deal.created_at)).abs %></td>
       </tr>
     <% end %>
   </tbody>
