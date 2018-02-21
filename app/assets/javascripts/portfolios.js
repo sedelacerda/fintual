@@ -44,5 +44,19 @@ $(document).on("turbolinks:load", function(){
 
 
 
+    // Charts behaviour
+    if($('#annual-profit').length > 0) {
+
+        $.ajax({
+            url: "profit_by_year_chart",
+            type: "get",
+            data: {
+                
+            }
+        });
+    }
+
+
+
     
 });

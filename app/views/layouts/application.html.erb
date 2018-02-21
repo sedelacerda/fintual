@@ -18,7 +18,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <% if (params[:controller] == 'portfolios' and params[:id].present?) or (params[:controller] == 'deals' and params[:portfolio_id].present?) %>
+          <% if (params[:controller] == 'portfolios' and (params[:id].present? or params[:portfolio_id].present? )) or (params[:controller] == 'deals' and params[:portfolio_id].present?) %>
             <% p = Portfolio.find(params[:id] || params[:portfolio_id]) %>
             <%= link_to p.name, p, class: "navbar-brand" %>
           <% end %>

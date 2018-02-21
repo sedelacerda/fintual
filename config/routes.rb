@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :portfolios do
     get 'update_profit'
     get 'profit_by_year'
+    get 'profit_by_year_chart'
     resources :deals
   end
 end

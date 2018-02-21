@@ -1,4 +1,5 @@
 class PortfoliosController < ApplicationController
+  protect_from_forgery with: :exception, except: :profit_by_year
   before_action :set_portfolio, only: [:show, :edit, :update, :destroy]
 
   # GET /portfolios
@@ -24,6 +25,30 @@ class PortfoliosController < ApplicationController
   end
 
   def profit_by_year
+    
+  end
+
+  def profit_by_year_chart
+    @portfolio = Portfolio.find(params[:portfolio_id])
+    portfolio_deals = @portfolio.deals
+
+    @years = portfolio_deals.pluck(:created_at).map(&:year).uniq.sort
+    @data = []
+
+    @years.each do |year|
+      start_date = "1/1/#{year}".to_datetime.beginning_of_year
+      finish_date = "1/1/#{year}".to_datetime.end_of_year
+      @data << @portfolio.profit(start_date, finish_date).to_f.round(2)
+    end
+
+    puts '##################################################################'
+    puts @years.inspect
+    puts @data.inspect
+    puts '##################################################################'
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /portfolios/1
