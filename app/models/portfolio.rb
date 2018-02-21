@@ -17,12 +17,18 @@ class Portfolio < ApplicationRecord
     #                     + (dif. inversion-ventas)
     
 
-    def investment
+    def investment(datetime_start=nil, datetime_end=nil)
         inv = 0
-        self.deals.each do |deal|
-            if !deal.is_sale
-                inv += deal.amount * deal.stock.price(deal.created_at)
-            end
+
+        if !(datetime_start.present? and datetime_end.present?)
+            datetime_start = self.deals.order(:created_at).first.created_at
+            datetime_end = DateTime.now
+        end
+
+        lapse_deals = self.deals.where(created_at: datetime_start..datetime_end, is_sale: false)
+
+        lapse_deals.each do |deal|
+            inv += deal.amount * deal.stock.price(deal.created_at)
         end
         inv
     end

@@ -7,9 +7,30 @@ class PortfoliosController < ApplicationController
     @portfolios = Portfolio.all
   end
 
+  def update_profit
+    @portfolio = Portfolio.find(params[:portfolio_id])
+    start = params[:start_date].to_date.beginning_of_day
+    finish = params[:finish_date].to_date.end_of_day
+
+    profit = @portfolio.profit(start, finish)
+    portfolio_investment = @portfolio.investment(start, finish)
+    profit_percentage = portfolio_investment > 0 ? ((profit/portfolio_investment) * 100) - 100 : 0
+
+    @result = "#{profit.round(2)} (#{profit_percentage >= 0 ? '+' : '-'}#{profit_percentage.round(2)}%)"
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def profit_by_year
+  end
+
   # GET /portfolios/1
   # GET /portfolios/1.json
   def show
+    @finish_date = Date.today.strftime("%d/%m/%Y")
+    @start_date = @portfolio.deals.empty? ? @finish_date : @portfolio.deals.order(:created_at).first.created_at.strftime("%d/%m/%Y")
     @portfolio_stock_amount = @portfolio.deals.having("SUM(amount) > 0").group(:stock).sum(:amount)
   end
 

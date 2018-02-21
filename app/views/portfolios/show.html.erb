@@ -17,16 +17,27 @@
 
 <div class="row">
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 style="display: inline;">Profit</h3>
+    <div class="panel-heading clearfix">
+      <div class="pull-left">
+        <h3 style="display: inline;">Profit</h3>
+      </div>
+      <div class="pull-right">
+        <div style="display: inline;">
+          <%= link_to 'View by year', portfolio_profit_by_year_path(@portfolio), class: 'btn btn-primary' %>
+            
+        </div>
+      </div>
     </div>
     <div class="panel-body">
       <div class="col-xs-12">
         <div class="pull-left">
-          <h4>Total profit</h4>
+          From
+          <input type="text" class='datepicker start' data-init="<%= @start_date %>" >
+          to
+          <input type="text" class='datepicker finish' data-init="<%= @finish_date %>" >
         </div>
         <div class="pull-right">
-          <h4><%= 'USD ' + @portfolio.profit.to_s %></h4>          
+          <h4 class="inline-text">Total profit = USD <div id="profit" class="inline-text"><%= ('%.2f' % @portfolio.profit) %></div></h4>          
         </div>
       </div>
     </div>
@@ -36,7 +47,7 @@
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 style="display: inline;">Portfolio stocks</h3>
+      <h3 style="display: inline;">Current portfolio stocks</h3>
     </div>
     <div class="panel-body">
       <table class="table table-striped table-hover">
@@ -54,9 +65,9 @@
           <% @portfolio_stock_amount.each do |sa| %>
             <tr>
               <td><%= sa[0].name %></td>
-              <td class="text-right"><%= sa[1] %></td>
-              <td class="text-right"><%= sa[0].price %></td>
-              <td class="text-right"><%= sa[1] * sa[0].price %></td>
+              <td class="text-right"><%= '%.2f' % sa[1] %></td>
+              <td class="text-right"><%= '%.2f' % sa[0].price %></td>
+              <td class="text-right"><%= '%.2f' % (sa[1] * sa[0].price) %></td>
               <td class="text-right"><%= link_to 'View stock history', sa[0], class: 'btn btn-xs btn-success' %></td>
             </tr>
           <% end %>

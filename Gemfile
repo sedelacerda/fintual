@@ -64,3 +64,6 @@ gem 'awesome_print'
 # Visualization
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
+gem 'bootstrap-datepicker-rails'
+
+gem 'jquery-rails'

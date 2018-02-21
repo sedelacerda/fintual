@@ -5,7 +5,7 @@ class Deal < ApplicationRecord
   after_save :set_amount_sign
 
   def trx_type
-    self.is_sale? ? 'Sale' : 'Buy'
+    self.is_sale? ? 'Sell' : 'Buy'
   end
 
   def set_amount_sign
