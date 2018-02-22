@@ -1,12 +1,19 @@
-var lineChart = d3.cloudshapes.lineChartFintual()
-                .width($('#annual-profit').width())
-                .height(500)
-                .data([<%= @data %>])
-                .labels(<%= @years %>)
-                .seriesNames(["Annual profit"])
-                .colors(['#05729b'])
-                .margin({top: 20, right: 30, bottom: 20, left: 50})
-                .dataUnit('USD')
-                .yAxisTitle('Annual profit (USD)');
-            
-d3.select('#annual-profit').call(lineChart);
+if($('#annual-profit').is(':empty')) {
+    var lineChart = d3.cloudshapes.lineChartFintual()
+                    .width($('#annual-profit').width())
+                    .height(500)
+                    .data([<%= @data %>])
+                    .labels(<%= @years %>)
+                    .seriesNames(["Annual profit"])
+                    .colors(['#05729b'])
+                    .margin({top: 20, right: 30, bottom: 20, left: 50})
+                    .dataUnit('USD')
+                    .yAxisTitle('Annual profit (USD)');
+                
+    d3.select('#annual-profit').call(lineChart);
+} else {
+    console.log(<%= @years %>);
+    console.log(<%= @data %>);
+    lineChart.labels(<%= @years %>).data([<%= @data %>]);
+
+}

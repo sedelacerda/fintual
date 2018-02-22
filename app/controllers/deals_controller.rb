@@ -26,10 +26,12 @@ class DealsController < ApplicationController
   # POST /deals.json
   def create
     @deal = Deal.new(deal_params)
+    @deal.portfolio = @portfolio
+    @deal.is_sale = params[:deal][:is_sale] == "true" ? true : false
 
     respond_to do |format|
       if @deal.save
-        format.html { redirect_to [@portfolio, @deal], notice: 'Deal was successfully created.' }
+        format.html { redirect_to @portfolio, notice: 'Deal was successfully created.' }
         format.json { render :show, status: :created, location: @deal }
       else
         format.html { render :new }
@@ -74,6 +76,6 @@ class DealsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def deal_params
-      params.require(:deal).permit(:portfolio_id, :stock_id, :amount)
+      params.require(:deal).permit(:portfolio_id, :stock_id, :amount, :is_sale)
     end
 end

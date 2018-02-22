@@ -11,17 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :stock_id %>
-    <%= form.text_field :stock_id, id: :deal_stock_id %>
+    <%= form.select(:stock_id, Stock.all.collect {|s| [s.name, s.id]}, {} ,{class: 'form-control'}) %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :amount %>
-    <%= form.text_field :amount, id: :deal_amount %>
+    <%= form.number_field :amount, id: :deal_amount, class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+
+
+  <div class="form-group">
+    <div class="pull-left">
+      Buy <%= form.radio_button :is_sale, false %>
+      Sell <%= form.radio_button :is_sale, true %>
+    </div>
+    <div class="pull-right">
+      <%= form.submit 'Trade', class: 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>

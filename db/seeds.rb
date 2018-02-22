@@ -15,6 +15,6 @@ end
 
 # Portfolios
 5.times do |i|
-    p = Portfolio.create!(name: 'Portfolio ' + (i+1).to_s)
+    p = Portfolio.create!(name: 'Portfolio ' + (i+1).to_s, investment: (rand*500000).round(2))
     ap p
 end

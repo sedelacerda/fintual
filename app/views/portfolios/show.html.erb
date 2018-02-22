@@ -6,9 +6,13 @@
       <%= @portfolio.name %>
     </h1>
     <%= link_to 'Edit', edit_portfolio_path(@portfolio), class: 'btn btn-xs btn-primary inline-text' %>
+    <h1 class="inline-text">
+      <small><%= " Current value = USD #{@portfolio.capital_at(DateTime.now)}" %></small>
+    </h1>
   </div>
   <div class="pull-right">
     <h1 class="inline-text"></h1>
+    <%= link_to 'Buy/Sell', new_portfolio_deal_path(@portfolio), class: 'btn btn-success inline-text' %>
     <%= link_to 'View transactions history', portfolio_deals_path(@portfolio), class: 'btn btn-default inline-text' %>
   </div>
 </div>
@@ -23,8 +27,7 @@
       </div>
       <div class="pull-right">
         <div style="display: inline;">
-          <%= link_to 'View by year', portfolio_profit_by_year_path(@portfolio), class: 'btn btn-primary' %>
-            
+          <%= link_to 'View by year', portfolio_profit_by_year_path(@portfolio), class: 'btn btn-primary', style: 'font-weight: bold' %>
         </div>
       </div>
     </div>
@@ -68,7 +71,7 @@
               <td class="text-right"><%= '%.2f' % sa[1] %></td>
               <td class="text-right"><%= '%.2f' % sa[0].price %></td>
               <td class="text-right"><%= '%.2f' % (sa[1] * sa[0].price) %></td>
-              <td class="text-right"><%= link_to 'View stock history', sa[0], class: 'btn btn-xs btn-success' %></td>
+              <td class="text-right"><%= link_to 'View stock history', sa[0], class: 'btn btn-xs btn-success disabled' %></td>
             </tr>
           <% end %>
         </tbody>

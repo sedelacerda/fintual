@@ -108,6 +108,7 @@ d3.cloudshapes.lineChartFintual = function module() {
         .style({"stroke":colors[i], "stroke-width":"2px", "fill":"none"});
 
         var totalLength = path.node().getTotalLength();
+        console.log('totallength', totalLength)
 
         path.attr("stroke-dasharray", totalLength + " " + totalLength)
         .attr("stroke-dashoffset", totalLength)
@@ -148,7 +149,7 @@ d3.cloudshapes.lineChartFintual = function module() {
         _data = data;
 
         x1.domain(labels.map(function(d) { return d; }));
-        y1.domain([0, d3.max(_.flatten(_data), function(d, i) { return d+d*.1; })]).nice(10);
+        y1.domain([d3.min([d3.min(_.flatten(_data), function(d, i) { return d+d*.1; }),0]), d3.max(_.flatten(_data), function(d, i) { return d+d*.1; })]).nice(10);
 
         ticksDivider = Math.min(Math.ceil(labels.length/7), 7);
 
@@ -172,9 +173,11 @@ d3.cloudshapes.lineChartFintual = function module() {
         _data.forEach(function(dataCol, index) {
           var serieContainer = seriesContainers.filter(function (d, i) { return i === index;});
 
-          serieContainer.select("path")
-          .transition()
+          path = serieContainer.select("path");
+          
+          path.transition()
           .duration(750)
+          .attr('stroke-dasharray', 0)
           .attr("d", line(dataCol));
 
 
@@ -196,7 +199,7 @@ d3.cloudshapes.lineChartFintual = function module() {
             tip.style("left", d3.event.pageX+10+"px");
             tip.style("top", d3.event.pageY-25+"px");
             tip.style("display", "inline-block");
-            tip.html(labels[i] + "<br/><b>" + seriesNames[index] + "</b><br/>" + round(d, 1).toFixed(1) + " " + dataUnit);
+            tip.html(labels[i] + "<br/><b>" + seriesNames[index] + "</b><br/>" + Math.round(d*100)/100 + " " + dataUnit);
             if(analyticEventName) {
               ahoy.track(analyticEventName);
             }

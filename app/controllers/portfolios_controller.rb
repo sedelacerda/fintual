@@ -5,7 +5,7 @@ class PortfoliosController < ApplicationController
   # GET /portfolios
   # GET /portfolios.json
   def index
-    @portfolios = Portfolio.all
+    @portfolios = Portfolio.all.order(:name)
   end
 
   def update_profit
@@ -14,10 +14,10 @@ class PortfoliosController < ApplicationController
     finish = params[:finish_date].to_date.end_of_day
 
     profit = @portfolio.profit(start, finish)
-    portfolio_investment = @portfolio.investment(start, finish)
-    profit_percentage = portfolio_investment > 0 ? ((profit/portfolio_investment) * 100) - 100 : 0
+    init_capital = @portfolio.capital_at(start)
+    profit_percentage = init_capital > 0 ? ((profit/init_capital) * 100) : 0
 
-    @result = "#{profit.round(2)} (#{profit_percentage >= 0 ? '+' : '-'}#{profit_percentage.round(2)}%)"
+    @result = "#{profit.round(2)} (#{'+' if profit_percentage >= 0}#{profit_percentage.round(2)}%)"
 
     respond_to do |format|
       format.js
@@ -25,26 +25,30 @@ class PortfoliosController < ApplicationController
   end
 
   def profit_by_year
-    
+    @portfolio = Portfolio.find(params[:portfolio_id])
+    @finish_date = Date.today.strftime("%d/%m/%Y")
+    @start_date = @portfolio.deals.empty? ? @finish_date : @portfolio.deals.order(:created_at).first.created_at.strftime("%d/%m/%Y") 
   end
 
   def profit_by_year_chart
+    start_date = params[:start_date].to_date.beginning_of_day
+    finish_date = params[:finish_date].to_date.end_of_day
+    
     @portfolio = Portfolio.find(params[:portfolio_id])
     portfolio_deals = @portfolio.deals
 
-    @years = portfolio_deals.pluck(:created_at).map(&:year).uniq.sort
+    @years = (start_date.year..finish_date.year).to_a
     @data = []
 
     @years.each do |year|
-      start_date = "1/1/#{year}".to_datetime.beginning_of_year
-      finish_date = "1/1/#{year}".to_datetime.end_of_year
-      @data << @portfolio.profit(start_date, finish_date).to_f.round(2)
-    end
+      init_of_year = "1/1/#{year}".to_date.beginning_of_year
+      finish_of_year = "1/1/#{year}".to_date.end_of_year
 
-    puts '##################################################################'
-    puts @years.inspect
-    puts @data.inspect
-    puts '##################################################################'
+      start = init_of_year < start_date ? start_date : init_of_year
+      finish = finish_date < finish_of_year ? finish_date : finish_of_year
+
+      @data << @portfolio.profit(start, finish).to_f.round(2)
+    end
 
     respond_to do |format|
       format.js

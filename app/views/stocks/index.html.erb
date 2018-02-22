@@ -7,7 +7,6 @@
     <tr>
       <th>Name</th>
       <th class="text-right">Price (USD)</th>
-      <th colspan="2" class="text-right"></th>
     </tr>
   </thead>
 
@@ -16,8 +15,6 @@
       <tr>
         <td><%= stock.name %></td>
         <td class="text-right"><%= '%.2f' % stock.price %></td>
-        <td class="text-right"><%= link_to 'Last month', stock %></td>
-        <td class="text-right"><%= link_to 'Last year', stock %></td>
       </tr>
     <% end %>
   </tbody>
