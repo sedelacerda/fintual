@@ -1,6 +1,7 @@
 class Portfolio < ApplicationRecord
     has_many :deals
     has_many :stocks, through: :deals
+    before_create :set_investment
     
     def first_trx_date
         if self.deals.empty?
@@ -73,4 +74,12 @@ class Portfolio < ApplicationRecord
         end
 
     end
+
+
+    private
+        def set_investment
+            if self.investment.nil?
+                self.investment = (rand*500000).round(2)
+            end
+        end
 end
