@@ -27,13 +27,15 @@ d3.cloudshapes.lineChartFintual = function module() {
   function exports(_selection) {
     _selection.each(function() {
       _data = data;
+      console.log(data);
 
       var chartW = width - margin.left - margin.right,
       chartH = height - margin.top - margin.bottom;
 
+      console.log([d3.min([d3.min(_.flatten(_data), function(d, i) { return (d+d*.1).toFixed(2); }),0]), d3.max([d3.max(_.flatten(_data), function(d, i) { return (d+d*.1).toFixed(2); }),0])]);
       
       var y1 = d3.scale.linear()
-      .domain([d3.min([d3.min(_.flatten(_data), function(d, i) { return d+d*.1; }),0]), d3.max(_.flatten(_data), function(d, i) { return d+d*.1; })]).nice(10)
+      .domain([d3.min([d3.min(_.flatten(_data), function(d, i) { return d+d*.1; }),0]), d3.max([d3.max(_.flatten(_data), function(d, i) { return d+d*.1; }),0])]).nice(10)
       .range([chartH, 0]);
       
       var x1 = d3.scale.ordinal()
@@ -149,7 +151,7 @@ d3.cloudshapes.lineChartFintual = function module() {
         _data = data;
 
         x1.domain(labels.map(function(d) { return d; }));
-        y1.domain([d3.min([d3.min(_.flatten(_data), function(d, i) { return d+d*.1; }),0]), d3.max(_.flatten(_data), function(d, i) { return d+d*.1; })]).nice(10);
+        y1.domain([d3.min([d3.min(_.flatten(_data), function(d, i) { return d+d*.1; }),0]), d3.max([d3.max(_.flatten(_data), function(d, i) { return d+d*.1; }),0])]).nice(10);
 
         ticksDivider = Math.min(Math.ceil(labels.length/7), 7);
 
@@ -163,6 +165,10 @@ d3.cloudshapes.lineChartFintual = function module() {
         })));
 
         yAxis.scale(y1);
+
+        container.select(".x.axis")
+        .attr("transform", "translate(0," + (y1(0) + (margin.top)) + ")")
+        .call(xAxis);
 
         line.x(function(d, i) { return x1(labels[i]); })
         .y(function(d, i) { return y1(d); });

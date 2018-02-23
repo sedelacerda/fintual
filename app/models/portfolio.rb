@@ -49,6 +49,10 @@ class Portfolio < ApplicationRecord
         (capital + self.investment_at(datetime)).round(2)
     end
 
+    def stocks_value_at(datetime)
+        capital_at(datetime) - investment_at(datetime)
+    end
+
     def profit(datetime_start=nil, datetime_end=nil)
         if self.deals.empty?
             0

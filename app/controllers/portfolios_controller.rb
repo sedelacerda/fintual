@@ -15,9 +15,9 @@ class PortfoliosController < ApplicationController
 
     profit = @portfolio.profit(start, finish)
     init_capital = @portfolio.capital_at(start)
-    profit_percentage = init_capital > 0 ? ((profit/init_capital) * 100) : 0
+    # profit_percentage = init_capital > 0 ? ((profit/init_capital) * 100) : 0
 
-    @result = "#{profit.round(2)} (#{'+' if profit_percentage >= 0}#{profit_percentage.round(2)}%)"
+    @result = "#{profit.round(2)}"
 
     respond_to do |format|
       format.js
@@ -49,6 +49,9 @@ class PortfoliosController < ApplicationController
 
       @data << @portfolio.profit(start, finish).to_f.round(2)
     end
+
+    ap @years
+    ap @data
 
     respond_to do |format|
       format.js

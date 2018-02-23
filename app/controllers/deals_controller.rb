@@ -5,7 +5,7 @@ class DealsController < ApplicationController
   # GET /deals
   # GET /deals.json
   def index
-    @deals = Deal.all.order(:created_at)
+    @deals = Deal.where(portfolio_id: params[:portfolio_id]).order(:created_at)
   end
 
   # GET /deals/1
